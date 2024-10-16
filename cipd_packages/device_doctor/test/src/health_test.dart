@@ -52,7 +52,7 @@ void main() {
 
       expect(
         closeIosDialog(pm: pm),
-        throwsA(TypeMatcher<BuildFailedError>()),
+        throwsA(const TypeMatcher<BuildFailedError>()),
       );
     });
 
@@ -62,7 +62,7 @@ void main() {
 
       expect(
         closeIosDialog(pm: pm, infraDialog: 'abc'),
-        throwsA(TypeMatcher<BuildFailedError>()),
+        throwsA(const TypeMatcher<BuildFailedError>()),
       );
     });
   });

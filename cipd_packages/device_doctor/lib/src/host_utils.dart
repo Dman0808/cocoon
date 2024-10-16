@@ -14,7 +14,7 @@ final RegExp _whitespace = RegExp(r'\s+');
 ///
 /// This is used when we first fail to list devices and need a retry.
 Future<bool> killAllRunningProcessesOnWindows(String processName, {ProcessManager? processManager}) async {
-  processManager ??= LocalProcessManager();
+  processManager ??= const LocalProcessManager();
   // Avoid endless loop when a process from a different use exists, and fails
   // to get killed every try.
   int tries = 3;
@@ -35,7 +35,7 @@ Future<bool> killAllRunningProcessesOnWindows(String processName, {ProcessManage
 }
 
 List<String> runningProcessesOnWindows(String processName, {ProcessManager? processManager}) {
-  processManager ??= LocalProcessManager();
+  processManager ??= const LocalProcessManager();
   final ProcessResult result = processManager.runSync(<String>['powershell', 'Get-CimInstance', 'Win32_Process']);
   final List<String> pids = <String>[];
   if (result.exitCode == 0) {

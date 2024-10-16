@@ -22,15 +22,15 @@ const int _kBatteryMinLevel = 15;
 const int _kBatteryMaxTemperatureInCelsius = 34;
 
 class AndroidDeviceDiscovery implements DeviceDiscovery {
+  AndroidDeviceDiscovery._(this._outputFilePath);
+
+  @visibleForTesting
+  AndroidDeviceDiscovery.testing(this._outputFilePath);
   factory AndroidDeviceDiscovery(File? output) {
     return _instance ??= AndroidDeviceDiscovery._(output);
   }
 
   final File? _outputFilePath;
-  AndroidDeviceDiscovery._(this._outputFilePath);
-
-  @visibleForTesting
-  AndroidDeviceDiscovery.testing(this._outputFilePath);
 
   // Parses information about a device. Example:
   //
@@ -72,7 +72,7 @@ class AndroidDeviceDiscovery implements DeviceDiscovery {
     Duration retryDuration = const Duration(seconds: 10),
     ProcessManager? processManager,
   }) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     final List<String> output = await _deviceListOutputWithRetries(retryDuration, processManager: processManager);
     final List<String> results = <String>[];
     for (String line in output) {
@@ -99,7 +99,7 @@ class AndroidDeviceDiscovery implements DeviceDiscovery {
 
   @override
   Future<Map<String, List<HealthCheckResult>>> checkDevices({ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     final List<HealthCheckResult> defaultChecks = <HealthCheckResult>[];
     defaultChecks.add(await killAdbServerCheck(processManager: processManager));
     final Map<String, List<HealthCheckResult>> results = <String, List<HealthCheckResult>>{};
@@ -148,7 +148,7 @@ class AndroidDeviceDiscovery implements DeviceDiscovery {
   /// Refer function `get_dimensions` from
   /// https://source.chromium.org/chromium/infra/infra/+/master:luci/appengine/swarming/swarming_bot/api/platforms/android.py
   Future<Map<String, String>> getDeviceProperties(AndroidDevice device, {ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     final Map<String, String> deviceProperties = <String, String>{};
     final Map<String, String> propertyMap = <String, String>{};
     LineSplitter.split(
@@ -393,7 +393,7 @@ class AndroidDevice implements Device {
     final packages = <String>[];
 
     // Listen to the stdout and stderr streams
-    LineSplitter().convert(result.stdout).forEach((data) {
+    const LineSplitter().convert(result.stdout).forEach((data) {
       final packageMatch = RegExp(r'package:(.+)$').firstMatch(data);
       if (packageMatch != null) {
         final packageName = packageMatch.group(1);
@@ -423,7 +423,7 @@ class AndroidDevice implements Device {
     final packages = <String>[];
 
     // Listen to the stdout and stderr streams
-    LineSplitter().convert(result.stdout).forEach((data) {
+    const LineSplitter().convert(result.stdout).forEach((data) {
       final packageMatch = RegExp(r'package:(.+)$').firstMatch(data);
       if (packageMatch != null) {
         final packageName = packageMatch.group(1);
@@ -446,7 +446,7 @@ class AndroidDevice implements Device {
 
   @visibleForTesting
   Future<bool> cleanDevice({ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     final int timeoutSecs = 60;
     print('Device recovery: deleting package caches...');
     await eval('adb', <String>['wait-for-device'], canFail: false, processManager: processManager)
@@ -471,7 +471,7 @@ class AndroidDevice implements Device {
   /// Kill top running process if existing.
   @visibleForTesting
   Future<bool> killProcesses({ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     String result;
     result = await eval(
       'adb',

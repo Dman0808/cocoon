@@ -51,7 +51,7 @@ void main() {
           .thenAnswer((_) => throw TimeoutException('test'));
       expect(
         deviceDiscovery.discoverDevices(retryDuration: const Duration(seconds: 0), processManager: processManager),
-        throwsA(TypeMatcher<BuildFailedError>()),
+        throwsA(const TypeMatcher<BuildFailedError>()),
       );
     });
   });
@@ -59,7 +59,7 @@ void main() {
   group('AndroidDeviceProperties', () {
     late AndroidDeviceDiscovery deviceDiscovery;
     late MockProcessManager processManager;
-    Process property_process;
+    Process propertyProcess;
     Process process;
     String output;
 
@@ -85,14 +85,14 @@ void main() {
       [ro.product.model]: [jkl]
       [ro.product.board]: [mno]
       ''';
-      property_process = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
+      propertyProcess = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
 
       when(
         processManager.start(
           <Object>['adb', '-s', 'ZY223JQNMR', 'shell', 'getprop'],
           workingDirectory: anyNamed('workingDirectory'),
         ),
-      ).thenAnswer((_) => Future.value(property_process));
+      ).thenAnswer((_) => Future.value(propertyProcess));
 
       final Map<String, String> deviceProperties = await deviceDiscovery
           .getDeviceProperties(AndroidDevice(deviceId: 'ZY223JQNMR'), processManager: processManager);

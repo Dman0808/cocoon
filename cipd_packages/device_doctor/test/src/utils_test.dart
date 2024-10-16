@@ -76,7 +76,7 @@ void main() {
       process = FakeProcess(1, out: output);
       expect(
         eval('abc', <String>['a', 'b', 'c'], processManager: processManager),
-        throwsA(TypeMatcher<BuildFailedError>()),
+        throwsA(const TypeMatcher<BuildFailedError>()),
       );
     });
   });
@@ -114,7 +114,7 @@ void main() {
 
       expect(
         getMacBinaryPath('ideviceinstaller', processManager: processManager),
-        throwsA(TypeMatcher<BuildFailedError>()),
+        throwsA(const TypeMatcher<BuildFailedError>()),
       );
     });
   });

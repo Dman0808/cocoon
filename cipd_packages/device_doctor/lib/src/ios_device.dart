@@ -26,16 +26,16 @@ final Set<String> noRebootList = <String>{
 ///
 /// Discovers available ios devices and chooses one to work with.
 class IosDeviceDiscovery implements DeviceDiscovery {
-  factory IosDeviceDiscovery(File? output) {
-    return _instance ??= IosDeviceDiscovery._(output);
-  }
-
-  final File? _outputFilePath;
 
   IosDeviceDiscovery._(this._outputFilePath);
 
   @visibleForTesting
   IosDeviceDiscovery.testing(this._outputFilePath);
+  factory IosDeviceDiscovery(File? output) {
+    return _instance ??= IosDeviceDiscovery._(output);
+  }
+
+  final File? _outputFilePath;
 
   static IosDeviceDiscovery? _instance;
 
@@ -57,7 +57,7 @@ class IosDeviceDiscovery implements DeviceDiscovery {
 
   @override
   Future<Map<String, List<HealthCheckResult>>> checkDevices({ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     final Map<String, List<HealthCheckResult>> results = <String, List<HealthCheckResult>>{};
     for (Device device in await discoverDevices()) {
       final List<HealthCheckResult> checks = <HealthCheckResult>[];
@@ -230,7 +230,7 @@ class IosDevice implements Device {
   /// Restart iOS device.
   @visibleForTesting
   Future<bool> restart_device({ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     try {
       if (noRebootList.contains(deviceId)) {
         stdout.write('Device not marked for reboot.');
@@ -254,7 +254,7 @@ class IosDevice implements Device {
   /// Issue: https://github.com/flutter/flutter/issues/76896
   @visibleForTesting
   Future<bool> uninstall_applications({ProcessManager? processManager}) async {
-    processManager ??= LocalProcessManager();
+    processManager ??= const LocalProcessManager();
     String result;
     final String fullPathIdeviceInstaller = await getMacBinaryPath('ideviceinstaller', processManager: processManager);
     try {

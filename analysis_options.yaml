@@ -36,6 +36,11 @@ linter:
     unnecessary_const: true
     unnecessary_new: true
     unnecessary_this: true
+    use_super_parameters: true
+    prefer_final_fields: true
+    require_trailing_commas: true
+    unawaited_futures: true
+    unnecessary_await_in_return: true
 
 analyzer:
   language:
@@ -52,17 +57,3 @@ analyzer:
     - "**/*.pb.dart"
     - "**/*.pbjson.dart"
     - "**/*.pbgrpc.dart"
-    - "**/*.pbserver.dart"
-    - "**/*.pbenum.dart"
-    - "lib/generated_plugin_registrant.dart"
-    - "test/**/mocks.mocks.dart"
-
-linter:
-  rules:
-    use_super_parameters: true
-    prefer_final_fields: true
-    prefer_final_locals: true
-    prefer_single_quotes: true
-    require_trailing_commas: true
-    unawaited_futures: true
-    unnecessary_await_in_return: true

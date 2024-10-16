@@ -8,6 +8,8 @@ part 'discord_message.g.dart';
 
 @JsonSerializable()
 class Message {
+
+  factory Message.fromJson(Map<String, dynamic> input) => _$MessageFromJson(input);
   Message({this.content, this.username, this.avatarUrl});
 
   String? content;
@@ -15,7 +17,5 @@ class Message {
   // avatar_url
   @JsonKey(name: 'avatar_url', includeIfNull: false)
   String? avatarUrl;
-
-  factory Message.fromJson(Map<String, dynamic> input) => _$MessageFromJson(input);
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 }

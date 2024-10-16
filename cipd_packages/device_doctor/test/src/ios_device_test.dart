@@ -102,7 +102,7 @@ void main() {
           await deviceDiscovery.keychainUnlockCheck(processManager: processManager);
       expect(healthCheckResult.succeeded, false);
       expect(healthCheckResult.name, kKeychainUnlockCheckKey);
-      expect(healthCheckResult.details, 'Executable ${kUnlockLoginKeychain} failed with exit code 1.');
+      expect(healthCheckResult.details, 'Executable $kUnlockLoginKeychain failed with exit code 1.');
     });
 
     test('Cert check - success', () async {
@@ -342,7 +342,7 @@ void main() {
         processManager.start(<String>['which', 'idevicediagnostics'], workingDirectory: anyNamed('workingDirectory')),
       ).thenAnswer((_) => Future.value(whichProcess));
       process = FakeProcess(0);
-      device = IosDevice(deviceId: 'abc');
+      device = const IosDevice(deviceId: 'abc');
       when(
         processManager
             .start(<Object>[idevicediagnosticsPath, 'restart'], workingDirectory: anyNamed('workingDirectory')),
@@ -358,7 +358,7 @@ void main() {
         processManager.start(<String>['which', 'idevicediagnostics'], workingDirectory: anyNamed('workingDirectory')),
       ).thenAnswer((_) => Future.value(whichProcess));
       process = FakeProcess(1);
-      device = IosDevice(deviceId: 'abc');
+      device = const IosDevice(deviceId: 'abc');
       when(
         processManager
             .start(<Object>[idevicediagnosticsPath, 'restart'], workingDirectory: anyNamed('workingDirectory')),
@@ -368,13 +368,13 @@ void main() {
     });
 
     test('device restart - skip 32 bit phone', () async {
-      device = IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
+      device = const IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
       final bool result = await device.restart_device(processManager: processManager);
       expect(result, isTrue);
     });
 
     test('list applications - failure', () async {
-      device = IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
+      device = const IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
       process = FakeProcess(1);
       ideviceinstallerPath = '/abc/def/ideviceinstaller';
       whichProcess = FakeProcess(0, out: <List<int>>[utf8.encode(ideviceinstallerPath)]);
@@ -389,7 +389,7 @@ void main() {
 
     test('uninstall applications - no device is available', () async {
       ideviceinstallerPath = '/abc/def/ideviceinstaller';
-      device = IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
+      device = const IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
       output = '''No device found.
         ''';
       process = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
@@ -404,7 +404,7 @@ void main() {
 
     test('uninstall applications - no application exist', () async {
       ideviceinstallerPath = '/abc/def/ideviceinstaller';
-      device = IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
+      device = const IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
       output = '''CFBundleIdentifier, CFBundleVersion, CFBundleDisplayName
         ''';
       process = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
@@ -420,14 +420,14 @@ void main() {
 
     test('uninstall applications - applications exist with exception', () async {
       ideviceinstallerPath = '/abc/def/ideviceinstaller';
-      device = IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
+      device = const IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
       whichProcess = FakeProcess(0, out: <List<int>>[utf8.encode(ideviceinstallerPath)]);
       output = '''CFBundleIdentifier, CFBundleVersion, CFBundleDisplayName
         abc, def, ghi
         jkl, mno, pqr
         ''';
       process = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
-      Process process_uninstall = FakeProcess(1);
+      Process processUninstall = FakeProcess(1);
       when(processManager.start(<String>['which', 'ideviceinstaller'], workingDirectory: anyNamed('workingDirectory')))
           .thenAnswer((_) => Future.value(whichProcess));
       when(processManager.start(<Object>[ideviceinstallerPath, '-l'], workingDirectory: anyNamed('workingDirectory')))
@@ -435,18 +435,18 @@ void main() {
       when(
         processManager
             .start(<Object>[ideviceinstallerPath, '-U', 'abc'], workingDirectory: anyNamed('workingDirectory')),
-      ).thenAnswer((_) => Future.value(process_uninstall));
+      ).thenAnswer((_) => Future.value(processUninstall));
       when(
         processManager
             .start(<Object>[ideviceinstallerPath, '-U', 'jkl'], workingDirectory: anyNamed('workingDirectory')),
-      ).thenAnswer((_) => Future.value(process_uninstall));
+      ).thenAnswer((_) => Future.value(processUninstall));
 
       output = '''CFBundleIdentifier, CFBundleVersion, CFBundleDisplayName
         abc, def, ghi
         jkl, mno, pqr
         ''';
       process = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
-      process_uninstall = FakeProcess(1);
+      processUninstall = FakeProcess(1);
 
       final bool result = await device.uninstall_applications(processManager: processManager);
       expect(result, isFalse);
@@ -454,14 +454,14 @@ void main() {
 
     test('uninstall applications - applications exist', () async {
       ideviceinstallerPath = '/abc/def/ideviceinstaller';
-      device = IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
+      device = const IosDevice(deviceId: '822ef7958bba573829d85eef4df6cbdd86593730');
       whichProcess = FakeProcess(0, out: <List<int>>[utf8.encode(ideviceinstallerPath)]);
       output = '''CFBundleIdentifier, CFBundleVersion, CFBundleDisplayName
         abc, def, ghi
         jkl, mno, pqr
         ''';
       process = FakeProcess(0, out: <List<int>>[utf8.encode(output)]);
-      final Process process_uninstall = FakeProcess(0);
+      final Process processUninstall = FakeProcess(0);
       when(processManager.start(<String>['which', 'ideviceinstaller'], workingDirectory: anyNamed('workingDirectory')))
           .thenAnswer((_) => Future.value(whichProcess));
       when(processManager.start(<Object>[ideviceinstallerPath, '-l'], workingDirectory: anyNamed('workingDirectory')))
@@ -469,11 +469,11 @@ void main() {
       when(
         processManager
             .start(<Object>[ideviceinstallerPath, '-U', 'abc'], workingDirectory: anyNamed('workingDirectory')),
-      ).thenAnswer((_) => Future.value(process_uninstall));
+      ).thenAnswer((_) => Future.value(processUninstall));
       when(
         processManager
             .start(<Object>[ideviceinstallerPath, '-U', 'jkl'], workingDirectory: anyNamed('workingDirectory')),
-      ).thenAnswer((_) => Future.value(process_uninstall));
+      ).thenAnswer((_) => Future.value(processUninstall));
 
       final bool result = await device.uninstall_applications(processManager: processManager);
       expect(result, isTrue);

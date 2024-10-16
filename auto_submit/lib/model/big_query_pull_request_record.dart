@@ -12,6 +12,8 @@ part 'big_query_pull_request_record.g.dart';
 @immutable
 @JsonSerializable()
 class PullRequestRecord {
+
+  factory PullRequestRecord.fromJson(Map<String, dynamic> json) => _$PullRequestRecordFromJson(json);
   const PullRequestRecord({
     this.prCreatedTimestamp,
     this.prLandedTimestamp,
@@ -34,8 +36,6 @@ class PullRequestRecord {
 
   @override
   String toString() => jsonEncode(toJson());
-
-  factory PullRequestRecord.fromJson(Map<String, dynamic> json) => _$PullRequestRecordFromJson(json);
 
   Map<String, dynamic> toJson() => _$PullRequestRecordToJson(this);
 }

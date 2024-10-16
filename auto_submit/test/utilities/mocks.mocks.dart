@@ -645,6 +645,7 @@ class MockJobsResource extends _i1.Mock implements _i3.JobsResource {
     String? startIndex,
     int? timeoutMs,
     String? $fields,
+    bool? formatOptions_useInt64Timestamp,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -660,6 +661,7 @@ class MockJobsResource extends _i1.Mock implements _i3.JobsResource {
             #startIndex: startIndex,
             #timeoutMs: timeoutMs,
             #$fields: $fields,
+            #formatOptions_useInt64Timestamp: formatOptions_useInt64Timestamp,
           },
         ),
         returnValue: _i6.Future<_i3.GetQueryResultsResponse>.value(_FakeGetQueryResultsResponse_3(
@@ -677,6 +679,7 @@ class MockJobsResource extends _i1.Mock implements _i3.JobsResource {
               #startIndex: startIndex,
               #timeoutMs: timeoutMs,
               #$fields: $fields,
+              #formatOptions_useInt64Timestamp: formatOptions_useInt64Timestamp,
             },
           ),
         )),

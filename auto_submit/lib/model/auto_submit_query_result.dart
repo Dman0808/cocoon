@@ -14,18 +14,20 @@ part 'auto_submit_query_result.g.dart';
 
 @JsonSerializable()
 class Author {
+
+  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
   Author({
     this.login,
   });
   final String? login;
-
-  factory Author.fromJson(Map<String, dynamic> json) => _$AuthorFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthorToJson(this);
 }
 
 @JsonSerializable()
 class ReviewNode {
+
+  factory ReviewNode.fromJson(Map<String, dynamic> json) => _$ReviewNodeFromJson(json);
   ReviewNode({
     this.author,
     this.authorAssociation,
@@ -36,40 +38,38 @@ class ReviewNode {
   final String? authorAssociation;
   final String? state;
 
-  factory ReviewNode.fromJson(Map<String, dynamic> json) => _$ReviewNodeFromJson(json);
-
   Map<String, dynamic> toJson() => _$ReviewNodeToJson(this);
 }
 
 @JsonSerializable()
 class Reviews {
+
+  factory Reviews.fromJson(Map<String, dynamic> json) => _$ReviewsFromJson(json);
   Reviews({this.nodes});
 
   List<ReviewNode>? nodes;
-
-  factory Reviews.fromJson(Map<String, dynamic> json) => _$ReviewsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReviewsToJson(this);
 }
 
 @JsonSerializable()
 class CommitNode {
+
+  factory CommitNode.fromJson(Map<String, dynamic> json) => _$CommitNodeFromJson(json);
   CommitNode({this.commit});
 
   Commit? commit;
-
-  factory CommitNode.fromJson(Map<String, dynamic> json) => _$CommitNodeFromJson(json);
 
   Map<String, dynamic> toJson() => _$CommitNodeToJson(this);
 }
 
 @JsonSerializable()
 class Commits {
+
+  factory Commits.fromJson(Map<String, dynamic> json) => _$CommitsFromJson(json);
   Commits({this.nodes});
 
   List<CommitNode>? nodes;
-
-  factory Commits.fromJson(Map<String, dynamic> json) => _$CommitsFromJson(json);
 
   Map<String, dynamic> toJson() => _$CommitsToJson(this);
 }
@@ -82,6 +82,8 @@ enum MergeableState {
 
 @JsonSerializable()
 class ContextNode {
+
+  factory ContextNode.fromJson(Map<String, dynamic> json) => _$ContextNodeFromJson(json);
   ContextNode({
     this.createdAt,
     this.context,
@@ -96,8 +98,6 @@ class ContextNode {
   @JsonKey(name: 'targetUrl')
   String? targetUrl;
 
-  factory ContextNode.fromJson(Map<String, dynamic> json) => _$ContextNodeFromJson(json);
-
   Map<String, dynamic> toJson() => _$ContextNodeToJson(this);
 
   @override
@@ -106,17 +106,19 @@ class ContextNode {
 
 @JsonSerializable()
 class Status {
+
+  factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);
   Status({this.contexts});
 
   List<ContextNode>? contexts;
-
-  factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);
 
   Map<String, dynamic> toJson() => _$StatusToJson(this);
 }
 
 @JsonSerializable()
 class Commit {
+
+  factory Commit.fromJson(Map<String, dynamic> json) => _$CommitFromJson(json);
   Commit({
     this.abbreviatedOid,
     this.oid,
@@ -133,13 +135,13 @@ class Commit {
   final DateTime? pushedDate;
   final Status? status;
 
-  factory Commit.fromJson(Map<String, dynamic> json) => _$CommitFromJson(json);
-
   Map<String, dynamic> toJson() => _$CommitToJson(this);
 }
 
 @JsonSerializable()
 class PullRequest {
+
+  factory PullRequest.fromJson(Map<String, dynamic> json) => _$PullRequestFromJson(json);
   PullRequest({
     this.author,
     this.authorAssociation,
@@ -163,13 +165,13 @@ class PullRequest {
   // https://docs.github.com/en/graphql/reference/enums#mergeablestate
   final MergeableState? mergeable;
 
-  factory PullRequest.fromJson(Map<String, dynamic> json) => _$PullRequestFromJson(json);
-
   Map<String, dynamic> toJson() => _$PullRequestToJson(this);
 }
 
 @JsonSerializable()
 class Repository {
+
+  factory Repository.fromJson(Map<String, dynamic> json) => _$RepositoryFromJson(json);
   Repository({
     this.pullRequest,
   });
@@ -177,20 +179,18 @@ class Repository {
   @JsonKey(name: 'pullRequest')
   PullRequest? pullRequest;
 
-  factory Repository.fromJson(Map<String, dynamic> json) => _$RepositoryFromJson(json);
-
   Map<String, dynamic> toJson() => _$RepositoryToJson(this);
 }
 
 @JsonSerializable()
 class QueryResult {
+
+  factory QueryResult.fromJson(Map<String, dynamic> json) => _$QueryResultFromJson(json);
   QueryResult({
     this.repository,
   });
 
   Repository? repository;
-
-  factory QueryResult.fromJson(Map<String, dynamic> json) => _$QueryResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$QueryResultToJson(this);
 }
@@ -202,6 +202,8 @@ class QueryResult {
 /// called RevertPullRequest.
 @JsonSerializable()
 class RevertPullRequest {
+
+  factory RevertPullRequest.fromJson(Map<String, dynamic> json) => _$RevertPullRequestFromJson(json);
   RevertPullRequest({
     this.clientMutationId,
     this.pullRequest,
@@ -214,8 +216,6 @@ class RevertPullRequest {
   PullRequest? pullRequest;
   @JsonKey(name: 'revertPullRequest')
   PullRequest? revertPullRequest;
-
-  factory RevertPullRequest.fromJson(Map<String, dynamic> json) => _$RevertPullRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$RevertPullRequestToJson(this);
 }
@@ -233,12 +233,12 @@ class RevertPullRequest {
 /// }
 @JsonSerializable()
 class RevertPullRequestData {
+
+  factory RevertPullRequestData.fromJson(Map<String, dynamic> json) => _$RevertPullRequestDataFromJson(json);
   RevertPullRequestData({this.revertPullRequest});
 
   @JsonKey(name: 'revertPullRequest')
   RevertPullRequest? revertPullRequest;
-
-  factory RevertPullRequestData.fromJson(Map<String, dynamic> json) => _$RevertPullRequestDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$RevertPullRequestDataToJson(this);
 }

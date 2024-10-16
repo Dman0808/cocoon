@@ -9,12 +9,6 @@ import 'git_cli.dart';
 import 'utilities.dart';
 
 class GitRepositoryManager {
-  final RepositorySlug slug;
-  final String workingDirectory;
-  String? cloneToDirectory;
-  final GitCli gitCli;
-
-  late String targetCloneDirectory;
 
   /// RepositoryManager will perform clone, revert and delete on the repository
   /// in the working directory that is cloned to [cloneToDirectory].
@@ -32,6 +26,12 @@ class GitRepositoryManager {
     cloneToDirectory ??= slug.name;
     targetCloneDirectory = '$workingDirectory/$cloneToDirectory';
   }
+  final RepositorySlug slug;
+  final String workingDirectory;
+  String? cloneToDirectory;
+  final GitCli gitCli;
+
+  late String targetCloneDirectory;
 
   /// Clone the repository identified by the slug.
   ///

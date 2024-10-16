@@ -10,16 +10,6 @@ import 'utilities.dart';
 
 /// Class to wrap the command line calls to git.
 class GitCli {
-  Logger logger = Logger('RepositoryManager');
-
-  static const String git = 'git';
-
-  static const String repositoryHttpPrefix = 'https://github.com/';
-  static const String repositorySshPrefix = 'git@github.com:';
-
-  late String repositoryPrefix;
-
-  late CliCommand _cliCommand;
 
   GitCli(GitAccessMethod gitCloneMethod, CliCommand cliCommand) {
     switch (gitCloneMethod) {
@@ -32,6 +22,16 @@ class GitCli {
     }
     _cliCommand = cliCommand;
   }
+  Logger logger = Logger('RepositoryManager');
+
+  static const String git = 'git';
+
+  static const String repositoryHttpPrefix = 'https://github.com/';
+  static const String repositorySshPrefix = 'git@github.com:';
+
+  late String repositoryPrefix;
+
+  late CliCommand _cliCommand;
 
   /// Check to see if the current directory is a git repository.
   Future<bool> isGitRepository(String directory) async {

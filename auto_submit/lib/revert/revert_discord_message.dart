@@ -5,11 +5,11 @@
 import 'package:auto_submit/model/discord_message.dart';
 
 class RevertDiscordMessage extends Message {
+
+  RevertDiscordMessage({super.content, super.username, super.avatarUrl});
   static const String _username = 'Revert bot';
   static const int discordMessageLength = 2000;
   static const int elipsesOffset = 3;
-
-  RevertDiscordMessage({super.content, super.username, super.avatarUrl});
 
   static RevertDiscordMessage generateMessage(
     String originalPrUrl,

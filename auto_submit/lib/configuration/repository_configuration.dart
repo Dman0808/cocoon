@@ -9,18 +9,6 @@ import 'package:yaml/yaml.dart';
 /// will need when submiting and validating pull requests for a particular
 /// repository.
 class RepositoryConfiguration {
-  // Autosubmit configuration keys as found in the both the global and local
-  // yaml configuraiton files.
-  static const String allowConfigOverrideKey = 'allow_config_override';
-  static const String defaultBranchKey = 'default_branch';
-  static const String autoApprovalAccountsKey = 'auto_approval_accounts';
-  static const String approvingReviewsKey = 'approving_reviews';
-  static const String approvalGroupKey = 'approval_group';
-  static const String runCiKey = 'run_ci';
-  static const String supportNoReviewRevertKey = 'support_no_review_revert';
-  static const String requiredCheckRunsOnRevertKey = 'required_checkruns_on_revert';
-
-  static const String defaultBranchStr = 'default';
 
   RepositoryConfiguration({
     allowConfigOverride,
@@ -39,6 +27,18 @@ class RepositoryConfiguration {
         runCi = runCi ?? true,
         supportNoReviewReverts = supportNoReviewReverts ?? true,
         requiredCheckRunsOnRevert = requiredCheckRunsOnRevert ?? <String>{};
+  // Autosubmit configuration keys as found in the both the global and local
+  // yaml configuraiton files.
+  static const String allowConfigOverrideKey = 'allow_config_override';
+  static const String defaultBranchKey = 'default_branch';
+  static const String autoApprovalAccountsKey = 'auto_approval_accounts';
+  static const String approvingReviewsKey = 'approving_reviews';
+  static const String approvalGroupKey = 'approval_group';
+  static const String runCiKey = 'run_ci';
+  static const String supportNoReviewRevertKey = 'support_no_review_revert';
+  static const String requiredCheckRunsOnRevertKey = 'required_checkruns_on_revert';
+
+  static const String defaultBranchStr = 'default';
 
   /// This flag allows the repository to override the org level configuration.
   bool allowConfigOverride;

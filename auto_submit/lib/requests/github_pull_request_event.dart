@@ -11,6 +11,8 @@ part 'github_pull_request_event.g.dart';
 /// sent to the webhook.
 @JsonSerializable()
 class GithubPullRequestEvent {
+
+  factory GithubPullRequestEvent.fromJson(Map<String, dynamic> json) => _$GithubPullRequestEventFromJson(json);
   const GithubPullRequestEvent({
     this.pullRequest,
     this.action,
@@ -27,8 +29,6 @@ class GithubPullRequestEvent {
   /// The author login of the person who initiated the event, currently only
   /// useful when processing revert requests.
   final User? sender;
-
-  factory GithubPullRequestEvent.fromJson(Map<String, dynamic> json) => _$GithubPullRequestEventFromJson(json);
 
   Map<String, dynamic> toJson() => _$GithubPullRequestEventToJson(this);
 }

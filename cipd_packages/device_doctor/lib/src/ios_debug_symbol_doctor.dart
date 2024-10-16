@@ -207,15 +207,6 @@ class RecoverCommand extends Command<bool> {
 /// recommended to make all fields nullable in case a different version of Xcode
 /// does not implement it.
 class XCDevice {
-  const XCDevice._({
-    required this.error,
-    required this.name,
-  });
-
-  static const String _debugSymbolDescriptionPattern = r' is busy: Fetching debug symbols for ';
-  static final RegExp _preparingPhoneForDevelopmentPattern = RegExp(
-    r'Preparing .* for development\. Xcode will continue when .* is finished\.',
-  );
 
   /// Parse subset of JSON from `parseJson` associated with a particular XCDevice.
   factory XCDevice.fromMap(Map<String, Object?> map) {
@@ -237,6 +228,15 @@ class XCDevice {
       name: map['name'] as String,
     );
   }
+  const XCDevice._({
+    required this.error,
+    required this.name,
+  });
+
+  static const String _debugSymbolDescriptionPattern = r' is busy: Fetching debug symbols for ';
+  static final RegExp _preparingPhoneForDevelopmentPattern = RegExp(
+    r'Preparing .* for development\. Xcode will continue when .* is finished\.',
+  );
 
   final Map<String, Object?>? error;
   final String name;

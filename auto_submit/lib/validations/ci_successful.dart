@@ -14,15 +14,15 @@ import '../service/log.dart';
 
 /// Validates all the CI build/tests ran and were successful.
 class CiSuccessful extends Validation {
+
+  CiSuccessful({
+    required super.config,
+  });
   /// The status checks that are not related to changes in this PR.
   static const Set<String> notInAuthorsControl = <String>{
     'tree-status', // flutter/engine repo
     'submit-queue', // packages repo
   };
-
-  CiSuccessful({
-    required super.config,
-  });
 
   @override
   String get name => 'CiSuccessful';
