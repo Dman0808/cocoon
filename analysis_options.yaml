@@ -16,8 +16,26 @@
 #   - https://github.com/flutter/engine/blob/main/analysis_options.yaml
 #
 # This file contains the analysis options used by Flutter tools, such as IntelliJ,
-# Android Studio, and the `flutter analyze` command.
-include: package:flutter_lints/flutter.yaml
+# Android Studio, and the `flutter analyze`  include: package:flutter_lints/flutter.yaml
+linter:
+  rules:
+    avoid_print: true
+    camel_case_types: true
+    constant_identifier_names: true
+    empty_constructor_bodies: true
+    implementation_imports: true
+    library_prefixes: true
+    non_constant_identifier_names: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_locals: true
+    prefer_single_quotes: true
+    sort_constructors_first: true
+    type_annotate_public_apis: true
+    unnecessary_brace_in_string_interps: true
+    unnecessary_const: true
+    unnecessary_new: true
+    unnecessary_this: true
 
 analyzer:
   language:
